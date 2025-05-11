@@ -1,0 +1,7 @@
+.idea/*
+.env
+composer.json
+composer.lock
+composer.phar
+db.php
+
