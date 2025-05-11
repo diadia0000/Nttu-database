@@ -1,0 +1,206 @@
+/* === Discord Style Chatroom CSS === */
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', 'Noto Sans TC', sans-serif;
+    background-color: #313338;
+    color: #f2f3f5;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  body.light-mode {
+    background-color: #f2f3f5;
+    color: #23272a;
+  }
+  
+  .app {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  .sidebar {
+    width: 280px;
+    background-color: #1e1f22;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .sidebar .toggle-theme {
+    background-color: #5865f2;
+    color: white;
+    border: none;
+    padding: 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .sidebar .channels {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .channel-button {
+    background: none;
+    color: #b5bac1;
+    border: none;
+    text-align: left;
+    padding: 6px 10px;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 6px;
+  }
+  
+  .channel-button:hover,
+  .channel-button.active {
+    background-color: #3c3f45;
+    color: white;
+  }
+  
+  .main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #313338;
+  }
+  
+  .channel-header {
+    height: 48px;
+    background-color: #2b2d31;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    font-weight: 600;
+    font-size: 16px;
+    border-bottom: 1px solid #1e1f22;
+  }
+
+  .logout-button {
+    height:auto;
+    width:280px;
+    position: fixed;
+    bottom: 10px;
+    background-color: #3c3f45;
+    display: inline-block;
+    color: white;
+    align-items: center;
+    padding: 0 16px;
+    font-size: 16px;
+    border: 0.1px solid #1e1f22;
+    border-radius: 6px;
+    cursor: pointer;  
+  }
+  
+  .chat-window {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 16px;
+    overflow: hidden;
+  }
+  
+  .message-list {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 10px;
+    padding-right: 4px;
+  }
+  
+  .message {
+    display: flex;
+    gap: 6px;
+    font-size: 15px;
+    line-height: 1.4;
+  }
+  
+  .author {
+    font-weight: 600;
+  }
+  
+  .content {
+    color: #dcddde;
+    margin-left: 4px;
+  }
+  
+  .message-input {
+    height: 48px;
+    background-color: #383a40;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    border: 1px solid #1e1f22;
+  }
+  
+  .message-input input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #f2f3f5;
+    font-size: 15px;
+    font-family: inherit;
+  }
+  
+  body.light-mode .sidebar {
+    background-color: #e3e5e8;
+  }
+  
+  body.light-mode .main {
+    background-color: #ffffff;
+  }
+  
+  body.light-mode .channel-header {
+    background-color: #f2f3f5;
+    color: #23272a;
+    border-color: #ddd;
+  }
+  
+  body.light-mode .channel-button {
+    color: #4f545c;
+  }
+  
+  body.light-mode .channel-button.active {
+    background-color: #ddd;
+    color: #23272a;
+  }
+  
+  body.light-mode .logout-button {
+    background-color: #f2f3f5;
+    color: #23272a;
+    border-color: #ccc;
+  }
+
+  body.light-mode .message-input {
+    background-color: #f2f3f5;
+    color: #23272a;
+    border-color: #ccc;
+  }
+  
+  body.light-mode .message-input input {
+    color: #23272a;
+  }
+  
+  body.light-mode .author.user-a {
+    color: #375dbb;
+  }
+  
+  body.light-mode .author.user-b {
+    color: #d54fbb;
+  }
+  
+  body.light-mode .author.user-c {
+    color: #2fa476;
+  }
+  
+  body.light-mode .content {
+    color: #23272a;
+  }
+  

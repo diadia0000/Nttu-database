@@ -1,0 +1,80 @@
+/* style.css */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #2f3136; /* 深色背景 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.auth-container {
+  width: 100%;
+  max-width: 400px;
+  background-color: #36393f; /* 註冊與登入框的背景 */
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  color: white;
+}
+
+.auth-box {
+  text-align: center;
+}
+
+h1 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.input-field {
+  width: 80%;
+  padding: 12px;
+  margin: 5px 0;
+  border-radius: 5px;
+  border: 1px solid #444;
+  background-color: #40444b; /* 輸入框背景 */
+  color: #fff;
+  font-size: 16px;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: #7289da; /* 聚焦時的邊框顏色 */
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 12px;
+  margin-top: 20px;
+  background-color: #7289da; /* Discord 藍色 */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background-color: #5f73b4; /* 輕微變色 */
+}
+
+.submit-btn:active {
+  background-color: #4f61a2; /* 按下後的顏色 */
+}
+
+.footer-text {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.footer-text a {
+  color: #7289da;
+  text-decoration: none;
+}
+
+.footer-text a:hover {
+  text-decoration: underline;
+}
