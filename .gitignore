@@ -1,7 +1,12 @@
-.idea/*
-.env
-composer.json
-composer.lock
-composer.phar
-db.php
+# PhpStorm 專用設定（IDE 配置不應提交）
+.idea/
 
+# 環境變數檔案（包含 API 密鑰）
+.env
+
+# Composer 管理的套件與執行檔
+/vendor/
+composer.phar
+
+# 資料庫設定（如你不想分享的話）
+db.php
