@@ -6,8 +6,9 @@ use Dotenv\Dotenv;
 $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
-$projectUrl = $_ENV['SUPABASE_URL'] ?? '';
+$supabaseUrl = $_ENV['SUPABASE_URL'] ?? '';
 $apiKey = $_ENV['SUPABASE_API_KEY'] ?? '';
+$table = 'users'; // 你的資料表名稱
 
 $message = '';
 
@@ -15,21 +16,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $authUrl = "$projectUrl/auth/v1/token?grant_type=password";
+    // 查詢 users 資料表
+    $queryUrl = "$supabaseUrl/rest/v1/$table?email=eq." . urlencode($email);
 
-    $loginData = json_encode([
-        'email' => $email,
-        'password' => $password
-    ]);
-
-    $ch = curl_init($authUrl);
+    $ch = curl_init($queryUrl);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $loginData);
     curl_setopt($ch, CURLOPT_HTTPHEADER, [
         "apikey: $apiKey",
+        "Authorization: Bearer $apiKey",
         "Content-Type: application/json"
     ]);
+
+    // 設定 SSL 憑證 (使用 cacert.pem)
+    curl_setopt($ch, CURLOPT_CAINFO, __DIR__ . '/cacert.pem');
 
     $response = curl_exec($ch);
     $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
@@ -37,19 +36,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $responseData = json_decode($response, true);
 
-    if ($httpCode >= 200 && $httpCode < 300 && isset($responseData['access_token'])) {
-        // 登入成功
-        $_SESSION['access_token'] = $responseData['access_token'];
-        $_SESSION['user'] = $responseData['user'];
+    if ($httpCode >= 200 && $httpCode < 300 && !empty($responseData)) {
+        $user = $responseData[0];
 
-        header('Location: index.php'); // 登入後導向主頁
-        exit;
+        if (password_verify($password, $user['password'])) {
+            // 登入成功
+            $_SESSION['user'] = $user;
+            header('Location: index.php'); // 登入後導向主頁
+            exit;
+        } else {
+            $message = "❌ 登入失敗：密碼錯誤";
+        }
     } else {
-        // 這裡強化了錯誤訊息顯示
-        $errorMsg = $responseData['error_description'] ?? '未知錯誤';
-        $message = "❌ 登入失敗：$errorMsg";
+        $message = "❌ 登入失敗：帳號不存在";
     }
 }
+
 ?>
 
 
