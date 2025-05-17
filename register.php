@@ -10,12 +10,13 @@ $supabaseUrl = $_ENV['SUPABASE_URL'];
 $apiKey = $_ENV['SUPABASE_API_KEY'];
 $table = 'users'; // 你的資料表名稱
 
-function insertUserToDatabase($supabaseUrl, $apiKey, $table, $username, $email, $hashedPassword) {
+function insertUserToDatabase($supabaseUrl, $apiKey, $table, $username, $email, $hashedPassword, $avatar) {
     $insertUrl = "$supabaseUrl/rest/v1/$table";
     $payload = json_encode([
         'username' => $username,
         'email' => $email,
-        'password' => $hashedPassword
+        'password' => $hashedPassword,
+        'avatar' => $avatar
     ]);
 
     $ch = curl_init($insertUrl);
@@ -28,8 +29,6 @@ function insertUserToDatabase($supabaseUrl, $apiKey, $table, $username, $email, 
         "Authorization: Bearer $apiKey",
         "Prefer: return=representation"
     ]);
-
-    // 設定 SSL 憑證 (使用 cacert.pem)
     curl_setopt($ch, CURLOPT_CAINFO, __DIR__ . '/cacert.pem');
 
     $response = curl_exec($ch);
@@ -40,13 +39,15 @@ function insertUserToDatabase($supabaseUrl, $apiKey, $table, $username, $email, 
     return [$httpCode, $response, $error];
 }
 
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $email = $_POST['email'];
     $rawPassword = $_POST['password'];
     $hashedPassword = password_hash($rawPassword, PASSWORD_DEFAULT);
+    $avatar = null;
 
-    list($httpCode, $response, $error) = insertUserToDatabase($supabaseUrl, $apiKey, $table, $username, $email, $hashedPassword);
+    list($httpCode, $response, $error) = insertUserToDatabase($supabaseUrl, $apiKey, $table, $username, $email, $hashedPassword, $avatar);
 
     if ($httpCode >= 200 && $httpCode < 300) {
         echo "✔ 註冊成功";
@@ -138,7 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             const texts = ['非常弱', '弱', '中等', '強', '非常強'];
             const colors = ['#ff0000', '#ff6600', '#ffcc00', '#99cc00', '#009900'];
 
-            indicator.textContent = 密碼強度: ${texts[strength]};
+            indicator.textContent = `密碼強度: ${texts[strength]}`;
             indicator.style.color = colors[strength];
         });
     </script>

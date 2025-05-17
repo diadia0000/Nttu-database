@@ -1,206 +1,592 @@
 /* === Discord Style Chatroom CSS === */
 
 body {
-    margin: 0;
-    font-family: 'Segoe UI', 'Noto Sans TC', sans-serif;
-    background-color: #313338;
-    color: #f2f3f5;
-    transition: background-color 0.3s, color 0.3s;
-  }
-  
-  body.light-mode {
-    background-color: #f2f3f5;
-    color: #23272a;
-  }
-  
-  .app {
-    display: flex;
-    height: 100vh;
-    overflow: hidden;
-  }
-  
-  .sidebar {
-    width: 280px;
-    background-color: #1e1f22;
-    padding: 12px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  
-  .sidebar .toggle-theme {
-    background-color: #5865f2;
-    color: white;
-    border: none;
-    padding: 8px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  .sidebar .channels {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  
-  .channel-button {
-    background: none;
-    color: #b5bac1;
-    border: none;
-    text-align: left;
-    padding: 6px 10px;
-    font-size: 15px;
-    cursor: pointer;
-    border-radius: 6px;
-  }
-  
-  .channel-button:hover,
-  .channel-button.active {
-    background-color: #3c3f45;
-    color: white;
-  }
-  
-  .main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    background-color: #313338;
-  }
-  
-  .channel-header {
-    height: 48px;
-    background-color: #2b2d31;
-    display: flex;
-    align-items: center;
-    padding: 0 16px;
-    font-weight: 600;
-    font-size: 16px;
-    border-bottom: 1px solid #1e1f22;
-  }
+  margin: 0;
+  font-family: 'Segoe UI', 'Noto Sans TC', sans-serif;
+  background-color: #2f3136;
+  color: #f2f3f5;
+  transition: background-color 0.3s, color 0.3s;
+}
 
-  .logout-button {
-    height:auto;
-    width:280px;
-    position: fixed;
-    bottom: 10px;
-    background-color: #3c3f45;
-    display: inline-block;
-    color: white;
-    align-items: center;
-    padding: 0 16px;
-    font-size: 16px;
-    border: 0.1px solid #1e1f22;
-    border-radius: 6px;
-    cursor: pointer;  
-  }
-  
-  .chat-window {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 16px;
-    overflow: hidden;
-  }
-  
-  .message-list {
-    flex: 1;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column-reverse;
-    gap: 10px;
-    padding-right: 4px;
-  }
-  
-  .message {
-    display: flex;
-    gap: 6px;
-    font-size: 15px;
-    line-height: 1.4;
-  }
-  
-  .author {
-    font-weight: 600;
-  }
-  
-  .content {
-    color: #dcddde;
-    margin-left: 4px;
-  }
-  
-  .message-input {
-    height: 48px;
-    background-color: #383a40;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    padding: 0 12px;
-    border: 1px solid #1e1f22;
-  }
-  
-  .message-input input {
-    width: 100%;
-    background: transparent;
-    border: none;
-    outline: none;
-    color: #f2f3f5;
-    font-size: 15px;
-    font-family: inherit;
-  }
-  
-  body.light-mode .sidebar {
-    background-color: #e3e5e8;
-  }
-  
-  body.light-mode .main {
-    background-color: #ffffff;
-  }
-  
-  body.light-mode .channel-header {
-    background-color: #f2f3f5;
-    color: #23272a;
-    border-color: #ddd;
-  }
-  
-  body.light-mode .channel-button {
-    color: #4f545c;
-  }
-  
-  body.light-mode .channel-button.active {
-    background-color: #ddd;
-    color: #23272a;
-  }
-  
-  body.light-mode .logout-button {
-    background-color: #f2f3f5;
-    color: #23272a;
-    border-color: #ccc;
-  }
+body.light-mode {
+  background-color: #ffffff;
+  color: #23272a;
+}
 
-  body.light-mode .message-input {
-    background-color: #f2f3f5;
-    color: #23272a;
-    border-color: #ccc;
-  }
-  
-  body.light-mode .message-input input {
-    color: #23272a;
-  }
-  
-  body.light-mode .author.user-a {
-    color: #375dbb;
-  }
-  
-  body.light-mode .author.user-b {
-    color: #d54fbb;
-  }
-  
-  body.light-mode .author.user-c {
-    color: #2fa476;
-  }
-  
-  body.light-mode .content {
-    color: #23272a;
-  }
-  
+.top-bar {
+  height: 35px;
+  width: 100%;
+  background-color: #2f3136; /* 與 .servers-bar 相同 */
+  display: flex;
+  align-items: center;
+  padding-left: 80px; /* 留出 server bar 寬度 + padding */
+  box-sizing: border-box;
+  position: relative;
+}
+
+.top-bar-title {
+  color: #f2f3f5;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.app {
+  display: flex;
+  height: calc(100vh - 35px);
+  overflow: visible;
+}
+
+.sidebar {
+  position: relative;
+  width: 300px;
+  background-color: #202225;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border-left: 1px solid #4f545c;
+  border-top-left-radius: 12px;
+}
+
+.servers-bar {
+  width: 72px;
+  background-color: #2f3136;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+#serverList {
+  padding: 0;
+  margin: 10px;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-top: 1px solid #4f545c;
+}
+
+.server-icon {
+  width: 40px;
+  height: 40px;
+  background-color: #2a2b30;
+  color: white;
+  font-weight: bold;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 20px;
+  transition: background-color 0.2s;
+}
+
+.server-icon:hover {
+  background-color: #4752c4;
+}
+
+.server-icon.active{
+  background-color: #4752c4;
+}
+
+.sidebar nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar nav ul li {
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #b5bac1;
+}
+
+.sidebar nav ul li:hover,
+.sidebar nav ul li.active {
+  background-color: #3c3f45;
+  color: white;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #36393f;
+}
+
+.server-header {
+  height: 48px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  font-size: 16px;
+  background-color: #202225;
+  color: #f2f3f5;
+  border-bottom: 1px solid #4f545c;
+  border-top: 1px solid #4f545c;
+  border-top-left-radius: 12px;
+}
+
+.channel-header {
+  height: 48px;
+  background-color: #36393f;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  font-weight: 600;
+  font-size: 16px;
+  border-bottom: 1px solid #4f545c;
+  border-top: 1px solid #4f545c;
+}
+
+.user-info-bottom {
+  position: fixed;
+  width: 332px;
+  bottom: 20px;
+  left: 12px;
+  display: flex;
+  align-items: center;
+  background-color: #2c2f36;
+  padding: 8px;
+  border-radius: 8px;
+  color: white;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+}
+.user-info-bottom #settingsBtn{
+  height:30px;
+  width:30px;
+  margin-left: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #2c2f36;
+  border: 0 solid black;
+  border-radius: 5px;
+  outline: none;
+}
+.user-info-bottom #settingsBtn:focus {
+  outline: none;
+  box-shadow: none;
+}
+.user-info-bottom #settingsBtn #dark-icon,#light-icon{
+  height:20px;
+  width:20px;
+  transition: none;
+}
+#settingsBtn:hover #dark-icon,
+#settingsBtn:hover #light-icon {
+  transform: rotate(180deg);
+  transition: transform 1s ease;
+}
+
+#dark-icon {
+  display: inline;
+}
+#light-icon {
+  display: none;
+}
+
+.user-avatar img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.user-details .user-name {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.user-info-bottom #settingsBtn:hover {
+  background-color: #3c4047;
+  cursor: pointer;
+}
+
+#userSettings {
+  opacity: 0;
+  transform: scale(1.1); /* 起始為放大一點，準備反向縮回來 */
+  transform-origin: center center;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: transparent;
+  z-index: 1000;
+  box-sizing: border-box;
+  flex-direction: row; /* 確保左右排 */
+}
+
+#userSettings.active { /* 顯示時加上這個 class */
+  opacity: 1;
+  transform: scale(1); /* 回到正常大小，看起來像從外收縮聚集出現 */
+  pointer-events: auto;
+}
+
+#userSettings .left{
+  display: flex;
+  flex: 2 4 1010px;
+  height: 100%;
+  width: 1010px;
+  flex-direction: column;
+  align-items: flex-end;
+  background-color: #2c2f36;
+}
+
+#userSettings .left p{
+font-size: 12px;
+color: rgba(202,202,202,0.82);
+}
+
+#userSettings .left .userList{
+  display: flex;
+  height: 35px;
+  width: 240px;
+  align-items: center;
+  justify-content: left;
+  color: #ffffff;
+  font-size: 15px;
+  margin-top: 5px;
+  margin-right: 14px;
+  background-color: #2c2f36;
+  border: 0;
+  border-radius: 5px;
+}
+
+#userSettings .left .userList:hover{
+  background-color: #505359;
+  transition: background-color 0.1s ease;
+  cursor: pointer;
+}
+
+#userSettings .left .userList:focus{
+  background-color: #505359;
+  transition: background-color 0.1s ease;
+}
+
+#userSettings .left .userList:active{
+  background-color: #383d43;
+  transition: background-color 0.1s ease;
+}
+
+#userSettings .left .userList.actives{
+  background-color: #505359;
+  transition: background-color 0.1s ease;
+}
+
+#userSettings .right{
+  display: flex;
+  flex: 3 5 1550px;
+  height: 100%;
+  width: 1550px;
+  justify-content: left;
+  color: #ffffff;
+  background-color: #36393f;
+}
+
+/* 共同樣式 */
+#userSettings .right button.theme {
+  height: 48px;
+  width: 48px;
+  margin-left: 10px;
+  border: 1px solid #f4f4f4;
+  border-radius: 100%;
+  cursor: pointer;
+}
+
+/* 主題背景 */
+#userSettings .right button.theme.dark {
+  background-color: #2a2b30;
+  margin-left: 40px;
+}
+
+#userSettings .right button.theme.light {
+  background-color: #ffffff;
+}
+#userSettings .right button.theme:focus,
+#userSettings .right button.theme:active,
+#userSettings .right button.theme.selected {
+  border:2px solid #4752c4 !important;
+}
+/* hover 顯示提示文字 */
+#userSettings .right button.theme::after {
+  content: attr(title);
+  position: absolute;
+  top: 110%; /* 在按鈕下方 */
+  left: 50%;
+  transform: translateX(-50%);
+  background: #000000cc;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 100;
+}
+
+#userSettings .right button.theme:hover::after {
+  opacity: 1;
+}
+
+#userSettings .right #closeSettingsBtn{
+  height:90px;
+  margin-left:500px;
+  margin-top:30px;
+  font-size: 15px;
+  font-weight: bold;
+  color: #d5d5d5;
+  border: 0;
+  background-color: #36393f;
+}
+
+#userSettings .right #closeSettingsBtn #x{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height:33px;
+  width:33px;
+  cursor: pointer;
+  border: 2px solid #d5d5d5;
+  border-radius: 100%;
+}
+
+#userSettings .right #closeSettingsBtn #esc{
+  margin-top: -7px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+#userSettings .right #closeSettingsBtn #x:hover{
+  border: 2px solid #f4f4f4;
+  color: #f4f4f4;
+  background-color: #4c5057;
+}
+
+.chat-window {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px;
+  overflow: hidden;
+}
+
+.message-list {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 10px;
+  padding-right: 4px;
+}
+
+.message {
+  display: flex;
+  gap: 6px;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.author {
+  font-weight: 600;
+}
+
+.content {
+  color: #dcddde;
+  margin-left: 4px;
+}
+
+.message-input {
+  height: 48px;
+  background-color: #383a40;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  border: 1px solid #1e1f22;
+}
+
+.message-input input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #f2f3f5;
+  font-size: 15px;
+  font-family: inherit;
+}
+
+body.light-mode .top-bar {
+  background-color: #ffffff;
+}
+
+body.light-mode .top-bar-title {
+  color: #23272a;
+}
+
+
+body.light-mode .sidebar {
+  background-color: #e3e5e8;
+  border-left: #ddd;
+}
+
+body.light-mode .servers-bar{
+  background-color: #ffffff;
+}
+body.light-mode #serverList {
+  border-top: 1px solid #ddd;
+}
+
+body.light-mode .sidebar nav ul li.active,
+body.light-mode .sidebar nav ul li:hover {
+  background-color: #d1d3d6;
+  color: #23272a;
+}
+
+body.light-mode .server-icon {
+  background-color: #cccccc;
+  color: #23272a;
+}
+body.light-mode .server-icon:hover,
+body.light-mode .server-icon.active {
+  background-color: #5865f2;
+  color: white;
+}
+
+body.light-mode .main {
+  background-color: #ffffff;
+}
+
+body.light-mode .user-info-bottom {
+  background-color: #e3e5e8;
+  color: #23272a;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+}
+body.light-mode .user-info-bottom #settingsBtn{
+  background-color: #e3e5e8;
+}
+body.light-mode .user-info-bottom #settingsBtn:hover{
+  background-color: #dee0e3;
+}
+
+body.light-mode #dark-icon {
+  display: none;
+}
+body.light-mode #light-icon {
+  display: inline;
+}
+
+body.light-mode #userSettings{
+  background-color: #e3e5e8;
+}
+
+/* === Light Mode: userList 按鈕 === */
+body.light-mode #userSettings .left .userList {
+  background-color: #e3e5e8;
+  color: #23272a;
+}
+body.light-mode #userSettings .left .userList:hover,
+body.light-mode #userSettings .left .userList:focus,
+body.light-mode #userSettings .left .userList:active,
+body.light-mode #userSettings .left .userList.actives {
+  background-color: #c2c3c5;
+}
+
+/* === Light Mode: userSettings left/right panel === */
+body.light-mode #userSettings .left {
+  background-color: #e3e5e8;
+  color: #23272a;
+}
+body.light-mode #userSettings .left p{
+  font-size: 12px;
+  color: rgba(35, 39, 42, 0.82);
+}
+body.light-mode #userSettings .right {
+  background-color: #ffffff;
+  color: #23272a;
+}
+/* 深色模式：加淺色外框 */
+body.light-mode #userSettings .right button.theme {
+  border: 1px solid #f4f4f4;
+}
+body.light-mode #userSettings .right #closeSettingsBtn {
+  background-color: #ffffff;
+  color: #23272a;
+}
+body.light-mode #userSettings .right #closeSettingsBtn #x {
+  border: 1px solid rgba(35, 39, 42, 0.82);
+  color: rgba(35, 39, 42, 0.82);
+}
+body.light-mode #userSettings .right #closeSettingsBtn #x:hover {
+  border: 1px solid #23272a;
+  background-color: #ccc;
+  color: #23272a;
+}
+
+body.light-mode #userSettings .right #closeSettingsBtn #esc {
+  color: #23272a;
+}
+
+body.light-mode .server-header {
+  background-color: #e3e5e8;
+  color: #23272a;
+  border-bottom: 1px solid #ddd;
+  border-top: 1px solid #ddd;
+}
+
+body.light-mode .channel-header {
+  background-color: #f2f3f5;
+  color: #23272a;
+  border-color: #ddd;
+}
+
+body.light-mode .channel-button {
+  color: #4f545c;
+}
+
+body.light-mode .channel-button.active {
+  background-color: #ddd;
+  color: #23272a;
+}
+
+body.light-mode .message-input {
+  background-color: #f2f3f5;
+  color: #23272a;
+  border-color: #ccc;
+}
+
+body.light-mode .message-input input {
+  color: #23272a;
+}
+
+body.light-mode .author.user-a {
+  color: #375dbb;
+}
+
+body.light-mode .author.user-b {
+  color: #d54fbb;
+}
+
+body.light-mode .author.user-c {
+  color: #2fa476;
+}
+
+body.light-mode .message {
+  color: #23272a;
+}
+body.light-mode .content {
+  color: #23272a;
+}
