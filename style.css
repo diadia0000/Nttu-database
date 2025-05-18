@@ -179,11 +179,23 @@ body.light-mode {
   width:25px;
   transition: none;
 }
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* 預設：圖示不轉動 */
+#settingsBtn #dark-icon,
+#settingsBtn #light-icon {
+  transition: transform 0.3s ease;
+}
+
+/* hover 時：圖示持續旋轉 */
 #settingsBtn:hover #dark-icon,
 #settingsBtn:hover #light-icon {
-  transform: rotate(180deg);
-  transition: transform 1s ease;
+  animation: spin 1s linear infinite;
 }
+
 
 #dark-icon {
   display: inline;

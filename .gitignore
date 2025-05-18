@@ -10,4 +10,5 @@ composer.phar
 
 # 資料庫設定（如你不想分享的話）
 db.php
+test.php
 config.php
