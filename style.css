@@ -175,8 +175,8 @@ body.light-mode {
   box-shadow: none;
 }
 .user-info-bottom #settingsBtn #dark-icon,#light-icon{
-  height:20px;
-  width:20px;
+  height:25px;
+  width:25px;
   transition: none;
 }
 #settingsBtn:hover #dark-icon,
@@ -393,6 +393,10 @@ color: rgba(202,202,202,0.82);
   padding-right: 4px;
 }
 
+.message-list.hidden {
+  display: none !important;
+}
+
 .message {
   display: flex;
   gap: 6px;
@@ -429,6 +433,70 @@ color: rgba(202,202,202,0.82);
   font-family: inherit;
 }
 
+/* 新增伺服器 modal 面板 */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background-color: #2f3136;
+  padding: 20px 30px;
+  border-radius: 8px;
+  width: 300px;
+  color: white;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0,0,0,0.4);
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  border: none;
+  border-radius: 4px;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-buttons button {
+  padding: 6px 14px;
+  border: none;
+  border-radius: 4px;
+  background-color: #5865f2;
+  color: white;
+  cursor: pointer;
+}
+
+.modal-buttons button:hover {
+  background-color: #4752c4;
+}
+
+.modal-buttons button:last-child {
+  background-color: #4f545c;
+}
+
+.modal-buttons button:last-child:hover {
+  background-color: #3a3e45;
+}
+
+/* Light Mode */
 body.light-mode .top-bar {
   background-color: #ffffff;
 }
@@ -589,4 +657,7 @@ body.light-mode .message {
 }
 body.light-mode .content {
   color: #23272a;
+}
+body.light-mode #addServer-p{
+
 }

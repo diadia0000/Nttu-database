@@ -107,14 +107,14 @@ try {
         <header class="channel-header" id="channelTitle"></header>
         <section class="chat-window">
             <div class="message-list" id="messageList"></div>
-            <div class="message-input">
+            <div class="message-input hidden" id="messageInputWrapper">
                 <input type="text" id="messageInput" placeholder="輸入訊息並按 Enter..." />
             </div>
         </section>
     </main>
 
     <!-- 用戶設定面板 -->
-    <div id="userSettings" class="user-settings hidden">
+    <div id="userSettings" class="user-settings">
         <!-- 這裡放設定內容 -->
         <aside class="left">
             <p style="margin-top: 35px;margin-right: 190px;">使用者設定</p>
@@ -130,6 +130,18 @@ try {
             </button>
         </div>
     </div>
+    <!-- 新增伺服器面板 -->
+    <div id="createServerModal" class="modal hidden">
+        <div class="modal-content">
+            <h2>建立伺服器</h2>
+            <p>給你的伺服器取個名字吧。</p>
+            <input type="text" id="newServerName" placeholder="伺服器名稱" />
+            <div class="modal-buttons">
+                <button id="createServerConfirm">建立</button>
+                <button id="createServerCancel">取消</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -138,7 +150,10 @@ try {
     window.loggedInUser = <?php echo json_encode(htmlspecialchars($username, ENT_QUOTES, 'UTF-8')); ?>;
 
     function openDMPanel() {
-        document.getElementById('channelTitle').textContent = "# 私訊中心";
+        document.getElementById('channelTitle').innerHTML = `
+            <button>好友</button>
+            <button>新增好友</button>
+        `;
 
         const topbartitle = document.querySelector('.top-bar-title');
         if (topbartitle) {
@@ -154,8 +169,6 @@ try {
         if (serverHeader) {
             serverHeader.textContent = "好友";
         }
-
-        document.getElementById('messageList').innerHTML = "<p style='color: #ccc; padding: 20px;'>這裡會顯示私訊列表或聊天內容。</p>";
     }
 
     function question1() {
@@ -165,11 +178,11 @@ try {
     }
     function question2() {
         document.getElementById("content").innerHTML = `
-    <h2 style='width: 150px;margin-left: 40px;margin-top: 55px;font-size: 20px;font-weight: bold;'>外觀</h2>
-    <h2 style='width: 150px;margin-left: 40px;margin-top: 55px;font-size: 20px;font-weight: lighter;'>主題</h2>
-    <button class="theme dark" title="深色模式"></button>
-    <button class="theme light" title="亮色模式"></button>
-    `;
+            <h2 style='width: 150px;margin-left: 40px;margin-top: 55px;font-size: 20px;font-weight: bold;'>外觀</h2>
+            <h2 style='width: 150px;margin-left: 40px;margin-top: 55px;font-size: 20px;font-weight: lighter;'>主題</h2>
+            <button class="theme dark" title="深色模式"></button>
+            <button class="theme light" title="亮色模式"></button>
+        `;
 
         const darkBtn = document.querySelector('.theme.dark');
         const lightBtn = document.querySelector('.theme.light');
