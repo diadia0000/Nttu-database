@@ -121,6 +121,7 @@ try {
             <button class="userList actives" onclick="question1()">我的帳號</button>
             <p style="margin-top: 10px;margin-right: 145px;">應用程式(網頁)設定</p>
             <button class="userList" onclick="question2()">外觀</button>
+            <button class="userList logout" onclick="logout()">登出帳號</button>
         </aside>
         <div class="right">
             <p id="content"></p>
@@ -183,7 +184,6 @@ try {
             <button class="theme dark" title="深色模式"></button>
             <button class="theme light" title="亮色模式"></button>
         `;
-
         const darkBtn = document.querySelector('.theme.dark');
         const lightBtn = document.querySelector('.theme.light');
 
@@ -207,6 +207,9 @@ try {
             darkBtn.classList.remove('selected');
             document.getElementById("esc").style.color = "rgba(35, 39, 42, 0.82)";
         });
+    }
+    function logout() {
+        window.location.href = 'logout.php';
     }
 
 

@@ -210,7 +210,9 @@ body.light-mode {
   border-radius: 50%;
   margin-right: 8px;
 }
-
+.user-avatar img:hover {
+  animation: spin 1s linear infinite;
+}
 .user-details .user-name {
   font-weight: bold;
   font-size: 14px;
@@ -294,6 +296,11 @@ color: rgba(202,202,202,0.82);
 #userSettings .left .userList.actives{
   background-color: #505359;
   transition: background-color 0.1s ease;
+}
+#userSettings .left .userList.logout {
+  color: crimson;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 #userSettings .right{
