@@ -3,7 +3,8 @@
         "php": "8.2.12",
         "vlucas/phpdotenv": "5.5",
         "guzzlehttp/guzzle": "7.5",
-        "supabase/supabase-php": "v0.0.3"
+        "supabase/supabase-php": "v0.0.3",
+        "ext-pdo": "*"
     },
     "config": {
         "platform": {

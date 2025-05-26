@@ -28,7 +28,7 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // 查詢用戶名
-    $stmt = $pdo->prepare("SELECT username, avatar FROM users WHERE email = ?");
+    $stmt = $pdo->prepare("SELECT id,username, avatar FROM users WHERE email = ?");
     $stmt->execute([$email]);
 
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -45,6 +45,15 @@ try {
         $avatar = "img/FoxTalk.png"; // 默認頭像
         }
     }
+    // 查詢使用者加入的伺服器清單
+    $stmt = $pdo->prepare("
+    SELECT s.id, s.name, s.icon
+    FROM servers s
+    JOIN server_members sm ON s.id = sm.server_id
+    WHERE sm.user_id = ?
+");
+    $stmt->execute([$user['id']]);
+    $joinedServers = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 } catch (PDOException $e) {
     error_log("DB Error: " . $e->getMessage());
@@ -71,7 +80,7 @@ try {
         <div class="server-icon active" id="dmButton" title="私訊">💬</div>
         <ul id="serverList">
             <!-- JS 會填入 <li class="server-icon">🔥</li> 等 -->
-            <div class="server-icon" style="margin-top: 10px;" id="addServerBtn" title="新增伺服器">➕</div>
+            <li class="server-icon" style="margin-top: 10px;" id="addServerBtn" title="新增伺服器">➕</li>
         </ul>
     </aside>
 
@@ -117,10 +126,15 @@ try {
     <div id="userSettings" class="user-settings">
         <!-- 這裡放設定內容 -->
         <aside class="left">
-            <p style="margin-top: 35px;margin-right: 190px;">使用者設定</p>
-            <button class="userList actives" onclick="question1()">我的帳號</button>
-            <p style="margin-top: 10px;margin-right: 145px;">應用程式(網頁)設定</p>
-            <button class="userList" onclick="question2()">外觀</button>
+            <div style="border-bottom: 1px solid rgba(128,128,128,0.8)">
+                <p style="margin-top: 35px;margin-left: 6px;">使用者設定</p>
+                <button style="margin-bottom: 5px" class="userList actives" onclick="question1()">我的帳號</button>
+            </div>
+            <div style="border-bottom: 1px solid rgba(128,128,128,0.8)">
+                <p style="margin-top: 10px;margin-left: 6px;">應用程式(網頁)設定</p>
+                <button style="margin-bottom: 5px" class="userList" onclick="question2()">外觀</button>
+            </div>
+                <button class="userList logout" onclick="logout()">登出帳號</button>
         </aside>
         <div class="right">
             <p id="content"></p>
@@ -134,17 +148,29 @@ try {
     <div id="createServerModal" class="modal hidden">
         <div class="modal-content">
             <h2>建立伺服器</h2>
-            <p>給你的伺服器取個名字吧。</p>
-            <input type="text" id="newServerName" placeholder="伺服器名稱" />
-            <div class="modal-buttons">
-                <button id="createServerConfirm">建立</button>
-                <button id="createServerCancel">取消</button>
-            </div>
+
+            <form id="createServerForm" action="create-server.php" method="POST" enctype="multipart/form-data">
+                <label>
+                    選擇圖示：
+                    <input type="file" name="server_icon" accept="image/*" onchange="previewServerIcon(event)" required>
+                </label>
+                <img id="iconPreview" src="" alt="預覽圖示" style="max-width: 100px; margin: 10px 0; display: none;">
+
+                <p>給你的伺服器取個名字吧。</p>
+                <input type="text" name="server_name" id="newServerName" placeholder="伺服器名稱" required />
+
+                <div class="modal-buttons">
+                    <button type="submit" id="createServerConfirm">建立</button>
+                    <button type="button" id="createServerCancel" onclick="cancelCreateServer()">取消</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 
 <script>
+    window.loggedInUser = <?php echo json_encode($username, JSON_UNESCAPED_UNICODE); ?>;
+    window.joinedServers = <?php echo json_encode($joinedServers); ?>;
 
     // 安全地輸出用戶名稱給 JavaScript
     window.loggedInUser = <?php echo json_encode(htmlspecialchars($username, ENT_QUOTES, 'UTF-8')); ?>;
@@ -163,6 +189,13 @@ try {
                 私人訊息
                 </span>
             `;
+        }
+
+        document.querySelectorAll('.server-icon').forEach(icon => icon.classList.remove('active'));
+
+        const dmButton = document.getElementById('dmButton');
+        if (dmButton) {
+            dmButton.classList.add('active');
         }
 
         const serverHeader = document.querySelector('.server-header');
@@ -209,6 +242,9 @@ try {
         });
     }
 
+    function logout() {
+        window.location.href = 'logout.php';
+    }
 
 </script>
 <script src="main.js"></script>

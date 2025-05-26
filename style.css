@@ -87,10 +87,14 @@ body.light-mode {
 
 .server-icon:hover {
   background-color: #4752c4;
+  transform:scale(1.1);
+  transition:0.5s;
 }
 
 .server-icon.active{
   background-color: #4752c4;
+  transform:scale(1.1);
+  transition:0.5s;
 }
 
 .sidebar nav ul {
@@ -179,10 +183,14 @@ body.light-mode {
   width:25px;
   transition: none;
 }
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 #settingsBtn:hover #dark-icon,
 #settingsBtn:hover #light-icon {
-  transform: rotate(180deg);
-  transition: transform 1s ease;
+  animation: spin 1s linear infinite;
 }
 
 #dark-icon {
@@ -484,6 +492,11 @@ color: rgba(202,202,202,0.82);
   cursor: pointer;
 }
 
+.modal-buttons button:disabled {
+  cursor: not-allowed !important;
+  opacity: 0.6;
+}
+
 .modal-buttons button:hover {
   background-color: #4752c4;
 }
@@ -508,7 +521,7 @@ body.light-mode .top-bar-title {
 
 body.light-mode .sidebar {
   background-color: #e3e5e8;
-  border-left: #ddd;
+  border-left: 1px solid #ddd;
 }
 
 body.light-mode .servers-bar{
@@ -660,4 +673,33 @@ body.light-mode .content {
 }
 body.light-mode #addServer-p{
 
+}
+/* Light Mode for 新增伺服器 modal 面板 */
+body.light-mode .modal-content {
+  background-color: #ffffff;
+  color: #23272a;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+body.light-mode .modal-content input {
+  background-color: #f0f0f0;
+  color: #23272a;
+}
+
+body.light-mode .modal-buttons button {
+  background-color: #5865f2;
+  color: white;
+}
+
+body.light-mode .modal-buttons button:hover {
+  background-color: #4752c4;
+}
+
+body.light-mode .modal-buttons button:last-child {
+  background-color: #f1f1f1;
+  color: #23272a;
+}
+
+body.light-mode .modal-buttons button:last-child:hover {
+  background-color: #dadada;
 }
