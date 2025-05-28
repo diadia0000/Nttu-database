@@ -3,7 +3,7 @@ session_start();
 
 if (!isset($_SESSION['user']) || !isset($_SESSION['user']['email'])) {
     http_response_code(403);
-    echo "未登入";
+    header('Location: login.php');
     exit;
 }
 
