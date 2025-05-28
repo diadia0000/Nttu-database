@@ -114,23 +114,23 @@ try {
     <!-- 右側：聊天室主畫面 -->
     <main class="main">
         <header class="channel-header" id="channelTitle"></header>
-        <div id="content">
-            <h2 style="margin: 20px;">👥 我的好友</h2>
-            <?php if (empty($friends)): ?>
-                <p style="margin-left: 20px;">你目前沒有任何好友。</p>
-            <?php else: ?>
-                <ul style="list-style: none; padding: 0; margin-left: 20px;">
-                    <?php foreach ($friends as $friend): ?>
-                        <li style="margin-bottom: 10px; display: flex; align-items: center;">
-                            <img src="<?= htmlspecialchars($friend['avatar'] ?? 'img/FoxTalk.png') ?>"
+            <div id="friendList">
+                <h2 style="margin: 20px;">👥 我的好友</h2>
+                <?php if (empty($friends)): ?>
+                    <p style="margin-left: 20px;">你目前沒有任何好友。</p>
+                <?php else: ?>
+                    <ul style="list-style: none; padding: 0; margin-left: 20px;">
+                        <?php foreach ($friends as $friend): ?>
+                            <li style="margin-bottom: 10px; display: flex; align-items: center;">
+                                <img src="<?= htmlspecialchars($friend['avatar'] ?? 'img/FoxTalk.png') ?>"
                                  alt="頭像"
                                  style="width: 32px; height: 32px; border-radius: 50%; margin-right: 10px;">
-                            <?= htmlspecialchars($friend['username']) ?>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-            <?php endif; ?>
-        </div>
+                                <?= htmlspecialchars($friend['username']) ?>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                <?php endif; ?>
+            </div>
         <section class="chat-window">
             <div class="message-list" id="messageList"></div>
             <div class="message-input hidden" id="messageInputWrapper">
