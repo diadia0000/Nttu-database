@@ -53,6 +53,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "✔ 註冊成功";
         echo "<script>setTimeout(() => { window.location.href = 'login.php'; }, 2000);</script>";
     } else {
+        http_response_code(403);
+        header('Location: login.php');
         echo "❌ 註冊失敗，HTTP Code: $httpCode<br>Error: $error<br>Response: <pre>$response</pre>";
     }
     exit;

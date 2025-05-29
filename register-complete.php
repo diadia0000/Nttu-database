@@ -10,8 +10,9 @@ $supabaseUrl = $_ENV['SUPABASE_URL'];
 $apiKey = $_ENV['SUPABASE_API_KEY'];
 $table = 'users';
 
-if (!isset($_SESSION['register_username']) || !isset($_SESSION['register_email'])) {
-    echo "❌ 缺少註冊資料，請重新註冊。";
+if (!isset($_SESSION['user']) || !isset($_SESSION['user']['email'])) {
+    http_response_code(403);
+    header('Location: login.php');
     exit;
 }
 
@@ -46,7 +47,8 @@ curl_close($ch);
 if ($httpCode >= 200 && $httpCode < 300) {
     echo "✔ 帳號已驗證並完成註冊，<a href='login.php'>點此登入</a>";
 } else {
-    echo "❌ 寫入使用者資料表失敗：HTTP $httpCode<br><pre>$response</pre>";
+    http_response_code(403);
+    header('Location: login.php');
 }
 
 // 清除 session
