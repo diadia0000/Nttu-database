@@ -291,7 +291,9 @@ color: rgba(202,202,202,0.82);
   background-color: #505359;
   transition: background-color 0.1s ease;
 }
-
+#userSettings .userList.logout{
+  color: #ff2d28;
+}
 #userSettings .right{
   display: flex;
   flex: 3 5 1550px;

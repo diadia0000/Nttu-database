@@ -42,6 +42,9 @@ try {
         <button type="submit">送出邀請</button>
     </form>
     <p id="addFriendMessage" style="margin-top: 10px;"></p>
+    <div style="margin-top: 20px;">
+        <button onclick="window.location.href='index.php'">返回首頁</button>
+    </div>
 </div>
 
 <script>
